@@ -1,0 +1,11 @@
+order_id,customer_id,city,product,amount,status
+1001,C1,Mumbai,Laptop,75000,Delivered
+1002,C2,Delhi,Phone,22000,Delivered
+1003,C3,Pune,Watch,8500,Pending
+1004,C4,Chennai,Tablet,28000,Delivered
+1005,C1,Mumbai,Laptop,75000,Cancelled
+1006,C5,Bangalore,Phone,25000,Delivered
+1007,C2,Delhi,Watch,9200,Delivered
+1008,C1,Mumbai,Laptop,68000,Pending
+1009,C4,Chennai,Phone,21000,Delivered
+1010,C3,Pune,Tablet,31000,Delivered

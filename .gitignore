@@ -1,0 +1,19 @@
+# PowerPoint lock files
+~$*.pptx
+
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local Hadoop/Spark runtime data (never commit cluster state)
+data/nameNode/
+data/dataNode/
+*.log
