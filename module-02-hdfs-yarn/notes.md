@@ -109,3 +109,29 @@ yarn logs -applicationId <application_id>
 ```
 
 **Hands-on:** [`code/session-2.2-yarn/`](code/session-2.2-yarn/) — a production-shaped batch job (`pyspark_batch_job.py`), the full `spark-submit` command progression, and a partitions/parallelism demo including a deliberately skewed dataset.
+
+---
+
+## Session 2.3 — HDFS Blocks, Replication & Fault Tolerance with Big Data
+
+Session 2.1 teaches the HDFS CLI on a tiny sample file, which is fine for
+commands but too small to ever actually split into multiple blocks. Session 2.3
+fixes that by generating a genuinely large dataset and walking through six
+scripts that make block-splitting, replication, and fault tolerance visible and
+provable, not just theoretical.
+
+| Script | What it shows |
+|---|---|
+| `01_generate_bigdata.sh` | Generates a synthetic transactions CSV, size configurable via `ROWS` |
+| `02_upload_and_split_blocks.sh` | Uploads with a small block size and runs `hdfs fsck` to reveal real block layout |
+| `03_replication_demo.sh` | Replication factor, `dfs.replication`, and `hdfs dfsadmin -report` |
+| `04_diskusage_and_blockfiles.sh` | Drops below HDFS to show the raw `blk_*` files on local disk |
+| `05_wordcount_mapreduce.sh` | Runs a real distributed MapReduce job over the big dataset |
+| `06_failure_simulation.sh` | Kills the DataNode mid-cluster and shows the effect of replication=1 |
+
+**Why it matters:** on this single-node lab, replication is capped at 1, so
+killing the one DataNode in step 6 makes the file briefly unreadable — the
+clearest possible argument for why production clusters run replication=3 across
+separate machines.
+
+**Hands-on:** [`code/session-2.3-hdfs-bigdata-demo/`](code/session-2.3-hdfs-bigdata-demo/) — full walkthrough and lecture flow in that folder's own `README.md`.
