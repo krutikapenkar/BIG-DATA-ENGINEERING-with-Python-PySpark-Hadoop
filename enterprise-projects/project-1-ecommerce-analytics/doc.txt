@@ -1,0 +1,45 @@
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+
+If PowerShell blocks the activation script with an execution-policy error, run once:
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+
+2. Install dependencies
+
+pip install -r requirements.txt
+
+Your java -version shows JDK 21 — Spark 3.5.1 does support Java 21, so this should work, but if you hit NullPointerException/JVM errors at Spark startup, that's the usual suspect (fallback: install a Java 17 JDK and point JAVA_HOME at it).
+
+3. Run the pipeline, in order
+
+# Quick smoke test first (finishes in under a minute)
+$env:ECOM_TINY_RUN=1
+python data_generation\generate_ecommerce_data.py
+python bronze\01_ingest_to_bronze.py
+python silver\02_bronze_to_silver.py
+python gold\03_silver_to_gold_rfm.py
+python gold\04_revenue_leakage.py
+python ml\05_customer_segmentation_kmeans.py
+python exports\08_export_gold_for_bi.py
+
+If that all runs clean, remove the tiny-run flag and do the real demo-scale run:
+Remove-Item Env:\ECOM_TINY_RUN
+python data_generation\generate_ecommerce_data.py
+python bronze\01_ingest_to_bronze.py
+python silver\02_bronze_to_silver.py
+python gold\03_silver_to_gold_rfm.py
+python gold\04_revenue_leakage.py
+python ml\05_customer_segmentation_kmeans.py
+python exports\08_export_gold_for_bi.py
+
+Each script prints row counts/sample output as it runs, so you'll sees progress live.
+
+4. Where the "dashboard" data is
+
+After step 3, exports\08_export_gold_for_bi.py writes Parquet + CSV files into exports/ — RFM scores, revenue leakage, customer segments, etc. There's no app to "open" — you'd point Power BI or Tableau at those files, or just open the CSVs directly.
+
+Optional: streaming demo (needs Docker Desktop)
+
+docker compose up -d
+python streaming\06_kafka_order_producer.py --rate 3     # terminal A
+python streaming\07_structured_streaming_to_delta.py     # terminal B

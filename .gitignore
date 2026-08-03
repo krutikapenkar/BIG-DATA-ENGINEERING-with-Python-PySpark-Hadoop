@@ -17,3 +17,7 @@ desktop.ini
 data/nameNode/
 data/dataNode/
 *.log
+
+# Enterprise project generated data (regenerate with data_generation/ - never commit)
+enterprise-projects/*/data/
+.ivy2/

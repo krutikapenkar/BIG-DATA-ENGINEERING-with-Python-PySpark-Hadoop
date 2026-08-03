@@ -12,6 +12,20 @@ A practical, module-wise course covering the Hadoop ecosystem, HDFS, YARN, and P
 | [03](module-03-rdd-dataframes/) | PySpark Core — RDDs & DataFrames | 6 hrs | Local or cluster |
 | [04](module-04-ambari/) | Cluster Monitoring with Ambari | — | Hadoop cluster + Ambari |
 
+## Enterprise projects (trainer-led)
+
+Beyond the modules above, two trainer-executed live-demonstration
+projects give students a real-world feel of production Big Data systems.
+Students observe, discuss, review the code, and receive the full
+codebase.
+
+| Project | Domain | Duration | Technologies |
+|---|---|---|---|
+| [1](enterprise-projects/project-1-ecommerce-analytics/) | E-Commerce Customer Behaviour & Revenue Analytics | 5 hrs / 2-3 sessions | PySpark, Spark SQL, Delta Lake, Kafka + Structured Streaming, Airflow |
+
+Each project folder has its own `README.md` (architecture, how to run),
+`notes.md` (concepts), and `session_plan.md` (the trainer's session-by-session script).
+
 ## How to use this repo
 
 1. Do **[00-environment-setup](00-environment-setup/)** first — it gets PySpark running locally for Module 1, and a real single-node Hadoop cluster (HDFS + YARN) running in WSL2 for Module 2 onward.

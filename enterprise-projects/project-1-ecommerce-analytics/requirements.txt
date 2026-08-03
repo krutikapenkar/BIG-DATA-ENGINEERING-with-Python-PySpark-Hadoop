@@ -1,0 +1,21 @@
+# Pinned to match 00-environment-setup's Spark 3.5.1 install.
+# If you pip installed a newer pyspark globally, either use a venv for this
+# project or make sure SPARK_HOME is unset (a mismatched SPARK_HOME env var
+# will make pyspark load the wrong version's jars regardless of this file).
+pyspark==3.5.1
+delta-spark==3.2.0
+faker==26.0.0
+numpy
+pandas
+kafka-python==2.0.2
+
+# Streamlit dashboard (dashboard/app.py) - reads the CSVs from
+# exports/08_export_gold_for_bi.py, no Spark dependency of its own.
+streamlit
+plotly
+
+# Airflow is intentionally not pinned here - install it in its own venv
+# per https://airflow.apache.org/docs/apache-airflow/stable/installation/,
+# using the constraints file for your Python version. Mixing Airflow's
+# dependency set into the same environment as PySpark is a common source
+# of version conflicts.
